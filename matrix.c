@@ -21,7 +21,7 @@ matrix matrix_create(unsigned n1, unsigned n2, scalar v)
       for(unsigned j=0; j<n2; ++j)
         *matrix_get(m,i,j) = v;
   }
- 
+  
   return m;
 }
 
@@ -65,6 +65,56 @@ matrix matrix_add(matrix m, matrix n)
       *matrix_get(res, i, j) = *matrix_get(m, i, j) + *matrix_get(n, i, j);
 
   return res;
+}
+
+matrix matrix_mul(matrix m, matrix n)
+{
+  matrix res={0,0,false,NULL};
+
+  if (!m.ok || !n.ok || (m.n2 != n.n1))
+    return res;
+
+  res = matrix_create(m.n1, n.n2, 0.);
+  for (unsigned i = 0; i < m.n1; ++i)
+    for (unsigned j = 0; j < m.n2; ++j)
+      for (unsigned k = 0; k < m.n2; ++k)
+        *matrix_get(res, i, j) += *matrix_get(m, i, k) * *matrix_get(n, k, j);
+
+  return res;
+}
+
+matrix matrix_power(matrix m, unsigned p)
+{
+  matrix res = { 0, 0, false, NULL };
+  matrix tmp = { 0, 0, false, NULL };
+
+  if (!m.ok || (m.n1 != m.n2))
+    return res;
+
+  if (p == 0)
+  {
+    return matrix_identity(m.n1);
+  }
+  else if (p == 1)
+  {
+    tmp = matrix_identity(m.n1);
+    res = matrix_mul(m, tmp);
+    matrix_destroy(tmp);
+    return res;
+  }
+  else
+  {
+    tmp = matrix_power(m, p / 2);
+    res = matrix_mul(tmp, tmp);
+    matrix_destroy(tmp);
+    if (p % 2)
+    {
+      tmp = res;
+      res = matrix_mul(tmp, m);
+      matrix_destroy(tmp);
+    }
+    return res;
+  }
 }
 
 void matrix_print(FILE *f, matrix m)
