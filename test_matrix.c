@@ -2,7 +2,7 @@
 #include "matrix.h"
 
 UTEST(matrix_create, simple) {
-  matrix m = matrix_create(3, 5, 0.);
+  matrix m = matrix_create(3, 5, 0.,0.);
   ASSERT_TRUE(m.ok && m.n1==3 && m.n2==5);
 }
 
