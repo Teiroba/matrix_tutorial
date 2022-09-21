@@ -111,7 +111,7 @@ UTEST(scalar_multiplication, simple) {
   matrix res = scalar_multiplication(m,11.);
   for (unsigned i=0;i<m.n1;++i)
     for (unsigned j=0;j<m.n2;++j)
-      ASSERT_TRUE(*matrix_get(m,i,j) == 11*(i*j+i)); 
+      ASSERT_TRUE(*matrix_get(res,i,j) == 11*(i*j+i)); 
 }
 
 UTEST_MAIN()
