@@ -56,6 +56,17 @@ UTEST(matrix_get, wrong) {
   ASSERT_TRUE(matrix_get(m, 0, 0)==NULL);
 }
 
+
+UTEST(matrix_add,simple){
+    matrix mat1 = matrix_create(5,5,5.);
+    matrix mat2 = matrix_identity(5);
+    matrix mat = matrix_add(mat1,mat2);
+    for (int i = 0; i<5 ; i++){for (int j=0; j< 5; j++){
+	ASSERT_TRUE(*matrix_get(mat,i,j)==*matrix_get(mat1,i,j)+*matrix_get(mat2,i,j));
+    }}
+}
+
+
 UTEST(matrix_mul, simple) {
   matrix m = matrix_create(3, 5, 0.), n = matrix_create(5, 4, 0.), res;
 #define GO(i, j, v) ASSERT_TRUE(*matrix_get(res, i, j) == v)
