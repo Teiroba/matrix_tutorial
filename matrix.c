@@ -139,6 +139,6 @@ matrix scalar_multiplication(matrix m, double k)
   for(unsigned i=0; i<m.n1;++i)
     for(unsigned j=0; j<m.n2;++j)
       *matrix_get(res,i,j) = k* (*matrix_get(m,i,j));
-  
+  ertrthkjhswdytgf
   return res;
 }
