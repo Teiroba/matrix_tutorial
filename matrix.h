@@ -19,6 +19,7 @@ scalar *matrix_get(matrix m, unsigned i, unsigned j);
 matrix matrix_add(matrix m, matrix n);
 matrix matrix_mul(matrix m, matrix n);
 matrix matrix_power(matrix m, unsigned p);
+matrix scalar_multiplication(matrix m, scalar k);
 void matrix_print(FILE *f, matrix m);
 
 matrix add_matrix(matrix m, matrix n);
